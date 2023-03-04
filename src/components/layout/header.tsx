@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik';
+import ActiveLink from './active-link';
 
 export default component$(() => {
   return (
@@ -10,9 +11,9 @@ export default component$(() => {
         <ul class="nav navbar-nav pull-xs-right">
           <li class="nav-item">
             {/* <!-- Add "active" class when you're on that page" --> */}
-            <a class="nav-link active" href="">
+            <ActiveLink activeClass="active" class="nav-link" href="/">
               Home
-            </a>
+            </ActiveLink>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="">
@@ -27,14 +28,14 @@ export default component$(() => {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <ActiveLink activeClass="active" class="nav-link" href="/login">
               Sign in
-            </a>
+            </ActiveLink>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <ActiveLink activeClass="active" class="nav-link" href="/register">
               Sign up
-            </a>
+            </ActiveLink>
           </li>
         </ul>
       </div>
