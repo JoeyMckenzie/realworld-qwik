@@ -4,7 +4,7 @@ import {
   setUserCookie,
   addValidationFailures,
   handleApiError,
-} from './effects';
+} from './services';
 import type { ApiError, AuthContext, UserAuthResponse } from './types';
 
 /**
