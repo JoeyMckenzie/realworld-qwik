@@ -1,19 +1,21 @@
 import { component$ } from '@builder.io/qwik';
+import { Link } from '@builder.io/qwik-city';
+import { Image } from '@unpic/qwik';
 import ActiveRoute from './active-route';
 
 type HeaderProps = {
   username?: string;
+  image?: string;
 };
 
 export default component$<HeaderProps>((props) => (
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="/">
+      <Link class="navbar-brand" href="/">
         conduit
-      </a>
+      </Link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          {/* <!-- Add "active" class when you're on that page" --> */}
           <ActiveRoute activeClass="active" class="nav-link" href="/">
             Home
           </ActiveRoute>
@@ -41,22 +43,34 @@ export default component$<HeaderProps>((props) => (
         {!!props.username && (
           <>
             <li class="nav-item">
-              <a class="nav-link" href="/editor">
-                {' '}
-                <i class="ion-compose"></i>&nbsp;New Article{' '}
-              </a>
+              <ActiveRoute activeClass="active" class="nav-link" href="/editor">
+                <i class="ion-compose"></i>&nbsp;New Article
+              </ActiveRoute>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/settings">
-                {' '}
-                <i class="ion-gear-a"></i>&nbsp;Settings{' '}
-              </a>
+              <ActiveRoute
+                activeClass="active"
+                class="nav-link"
+                href="/settings"
+              >
+                <i class="ion-gear-a"></i>&nbsp;Settings
+              </ActiveRoute>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/profile/eric-simons">
-                <img src="" class="user-pic" width="10" height="10" />
+              <ActiveRoute
+                activeClass="active"
+                class="nav-link"
+                href="/profile/eric-simons"
+              >
+                <Image
+                  layout="constrained"
+                  src={props.image}
+                  class="user-pic"
+                  width={25}
+                  height={25}
+                />
                 Eric Simons
-              </a>
+              </ActiveRoute>
             </li>
           </>
         )}

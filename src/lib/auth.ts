@@ -58,16 +58,17 @@ export async function fetchAuthentication(
 /**
  * Attempts retrieve the user information based on the current user token from storage.
  *
- * @param token Stashed token from cookie storage.
+ * @param encodedToken Stashed token from cookie storage.
  * @returns User data on success.
  */
 export async function fetchUser(
-  token: string
+  encodedToken: string
 ): Promise<ApiResult<UserResponse>> {
+  const decodedToken = Buffer.from(encodedToken, 'base64').toString('utf8');
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user`, {
     headers: {
       Accept: 'application/json',
-      Authorization: `Token ${token}`,
+      Authorization: `Token ${decodedToken}`,
     },
   });
 

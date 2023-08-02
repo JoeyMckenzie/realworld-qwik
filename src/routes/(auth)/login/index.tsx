@@ -4,12 +4,12 @@ import { AuthErrors } from '~/components/auth-errors';
 import { fetchAuthentication } from '~/lib/auth';
 import { getFriendlyErrors } from '~/lib/utils';
 
-export const userLoginUser = routeAction$(
+export const useLoginUser = routeAction$(
   async ({ email, password }, { cookie, redirect, fail }) => {
     const { data, error } = await fetchAuthentication(email, password);
 
     if (data) {
-      const buffer = Buffer.from(data.user.token, 'base64');
+      const buffer = Buffer.from(data.user.token);
       const cookieValue = buffer.toString('base64');
       cookie.set(import.meta.env.VITE_USER_TOKEN_COOKIE_KEY, cookieValue, {
         path: '/',
@@ -32,7 +32,7 @@ export const userLoginUser = routeAction$(
 );
 
 export default component$(() => {
-  const action = userLoginUser();
+  const action = useLoginUser();
 
   return (
     <div class="auth-page">

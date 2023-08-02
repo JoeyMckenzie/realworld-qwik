@@ -33,7 +33,7 @@ export const useUser = routeLoader$(async ({ cookie }) => {
   if (userToken) {
     const { data } = await fetchUser(userToken.value);
     return {
-      user: data,
+      user: data?.user,
     };
   }
 });
@@ -43,7 +43,10 @@ export default component$(() => {
 
   return (
     <>
-      <Header username={user.value?.user?.user.username} />
+      <Header
+        username={user.value?.user?.username}
+        image={user.value?.user?.image}
+      />
       <main>
         <Slot />
       </main>
