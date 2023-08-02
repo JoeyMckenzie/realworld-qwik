@@ -1,5 +1,13 @@
 import { ApiError, ApiResult } from './utils';
 
+/**
+ * Attempts to authenticate the user based on the authentication form from the register and login routes.
+ *
+ * @param email User's email from the authentication form.
+ * @param password User's password from the authentication form.
+ * @param username User's username from the authentication form, optional.
+ * @returns User data on success.
+ */
 export async function fetchAuthentication(
   email: string,
   password: string,
@@ -47,6 +55,12 @@ export async function fetchAuthentication(
   };
 }
 
+/**
+ * Attempts retrieve the user information based on the current user token from storage.
+ *
+ * @param token Stashed token from cookie storage.
+ * @returns User data on success.
+ */
 export async function fetchUser(
   token: string
 ): Promise<ApiResult<UserResponse>> {
