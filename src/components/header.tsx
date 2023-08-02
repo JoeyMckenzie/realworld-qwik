@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik';
+import ActiveRoute from './active-route';
 
 type HeaderProps = {
   username?: string;
@@ -13,22 +14,26 @@ export default component$<HeaderProps>((props) => (
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
           {/* <!-- Add "active" class when you're on that page" --> */}
-          <a class="nav-link active" href="/">
+          <ActiveRoute activeClass="active" class="nav-link" href="/">
             Home
-          </a>
+          </ActiveRoute>
         </li>
 
         {!props.username && (
           <>
             <li class="nav-item">
-              <a class="nav-link" href="/login">
+              <ActiveRoute activeClass="active" class="nav-link" href="/login">
                 Sign in
-              </a>
+              </ActiveRoute>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/register">
+              <ActiveRoute
+                activeClass="active"
+                class="nav-link"
+                href="/register"
+              >
                 Sign up
-              </a>
+              </ActiveRoute>
             </li>
           </>
         )}
@@ -49,7 +54,7 @@ export default component$<HeaderProps>((props) => (
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/profile/eric-simons">
-                <img src="" class="user-pic" />
+                <img src="" class="user-pic" width="10" height="10" />
                 Eric Simons
               </a>
             </li>
