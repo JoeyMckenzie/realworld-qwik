@@ -60,7 +60,7 @@ export default component$<HeaderProps>((props) => (
               <ActiveRoute
                 activeClass="active"
                 class="nav-link"
-                href="/profile/eric-simons"
+                href={`/profile/${props.username}`}
               >
                 <Image
                   layout="constrained"

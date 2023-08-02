@@ -94,12 +94,14 @@ type UserRequest = {
   password: string;
 };
 
+export type UserInfo = {
+  username: string;
+  email: string;
+  token: string;
+  bio?: string;
+  image?: string;
+};
+
 export type UserResponse = {
-  user: {
-    username: string;
-    email: string;
-    token: string;
-    bio?: string;
-    image?: string;
-  };
+  user: UserInfo;
 };

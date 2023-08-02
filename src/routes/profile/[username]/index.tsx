@@ -1,8 +1,32 @@
 import { component$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { Image } from '@unpic/qwik';
+import type { ProfileResponse } from '~/lib/profiles';
+
+export const useProfileDetails = routeLoader$(async ({ params, redirect }) => {
+  // This code runs only on the server, after every navigation
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/profiles/${params.username}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+  );
+
+  if (response.ok) {
+    const profile = (await response.json()) as ProfileResponse;
+    return profile.profile;
+  }
+
+  console.warn('username', params.username, 'not found');
+
+  redirect(307, '/');
+});
 
 export default component$(() => {
-  const location = useLocation();
+  const profile = useProfileDetails();
 
   return (
     <div class="profile-page">
@@ -10,15 +34,17 @@ export default component$(() => {
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-md-10 offset-md-1">
-              <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-              <h4>{location.params.username}</h4>
-              <p>
-                Cofounder @GoThinkster, lived in Aol's HQ for a few months,
-                kinda looks like Peeta from the Hunger Games
-              </p>
+              <Image
+                src={profile.value?.image}
+                class="user-img"
+                width={40}
+                height={40}
+              />
+              <h4>{profile.value?.username}</h4>
+              <p>{profile.value?.bio}</p>
               <button class="btn btn-sm btn-outline-secondary action-btn">
                 <i class="ion-plus-round"></i>
-                &nbsp; Follow Eric Simons
+                &nbsp; Follow {profile.value?.username}
               </button>
               <button class="btn btn-sm btn-outline-secondary action-btn">
                 <i class="ion-gear-a"></i>
